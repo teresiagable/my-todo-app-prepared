@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import todoService from "./../api/todoService";
 
 
 const Todos = (props) => {
-  console.log("todos", props.todoList);
+  console.log("todos",props.todolist);
 
   return (
     <>
@@ -17,37 +17,41 @@ const Todos = (props) => {
             <th>Done</th>
           </tr>
         </thead>
-        {props.todoList.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+        {props.todolist.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} updateDone={props.updateDone} />
         ))}
       </table>
     </>
   );
 };
 
+
+
+
 export const TodoItem = (props) => {
-  console.log("props", props);
   let todo = props.todo;
+  let date = new Date(todo.deadline);
+  let isChecked = todo.done ? "checked" : "";
+  //console.log("updateDone", props);
   return (
     <tbody>
       <tr className="table-secondary">
-        <td>{todo.deadline}</td>
+        <td>
+          {date.toLocaleDateString()} {date.toLocaleTimeString()}
+        </td>
         <td>{todo.title}</td>
         <td>{todo.description}</td>
         <td>{`${todo.assignee.firstName} ${todo.assignee.lastName}`}</td>
         <td>
-          <input type="checkbox" value={todo.done.toString()} disabled />
-        </td>
-        <td>
-          <Router>
-            <Link to={`/todo/${todo.id}`} className="btn btn-dark btn-sm">
-              Edit
-            </Link>
-          </Router>
+          <input
+            type="checkbox"
+            checked={todo.done}
+            onChange={(e) => props.updateDone(e, todo)}
+          />
         </td>
       </tr>
     </tbody>
   );
-};
+};;
 
 export default Todos;

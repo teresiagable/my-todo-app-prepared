@@ -5,7 +5,7 @@ import Todos from "./Todos";
 class Home extends Component {
   state = {
     todos: [],
-    isLoading: true,
+    loading: true,
   };
 
   async componentDidMount() {
@@ -13,15 +13,25 @@ class Home extends Component {
     console.log("todolist", todolist);
     this.setState({
       todos: todolist,
-      isLoading: false,
+      loading: false,
     });
   }
 
+  toggleDone = (e, todo) => {
+    //console.log("togglevalue", todo);
+    //console.log("e", e.target.checked);
+
+    let newtodo = { ...todo, done: e.target.checked };
+    console.log("updated todo item", newtodo);
+    //här ska vi göra något med svaret sen.
+    let response = todoService.updateDone(newtodo);
+  };
+
   render() {
-    return (this.state.isLoading) ? (
+    return this.state.loading ? (
       <div>Loading</div>
     ) : (
-      <Todos todoList={this.state.todos} />
+      <Todos todolist={this.state.todos} updateDone={this.toggleDone} />
     );
   }
 }

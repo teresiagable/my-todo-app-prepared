@@ -48,12 +48,13 @@
  *::after {
    box-sizing: border-box;
  }
- #tableTodo{
-   margin: auto;
-   margin-top: 10%;
- width: 80%;
-
+ 
+#tableTodo{
+  margin: auto;
+  margin-top: 10%;
+  width: 80%;
 }
+
  html {
    font-family: sans-serif;
    line-height: 1.15;
