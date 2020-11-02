@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+    <nav className='navbar navbar-expand-lg navbar-secondary bg-secodary'>
       <ul className='navbar-nav mr-auto '>
         <li className='nav-item'>
           <Link className='nav-link' to='/home'>
@@ -16,8 +16,8 @@ export default function Navbar() {
           </Link>
         </li>
         <li className='nav-item'>
-          <Link className='nav-link' to='/users'>
-            Users
+          <Link className='nav-link' to='/charactermain'>
+            StarWar characters
           </Link>
         </li>
       </ul>

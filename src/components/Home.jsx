@@ -4,7 +4,7 @@ const Home = (props) => {
   return (
     <div>
       <h1>Chas Academy</h1>
-      <p>Study study study</p>
+      <p className='lead'>Study study study</p>
     </div>
   );
 };

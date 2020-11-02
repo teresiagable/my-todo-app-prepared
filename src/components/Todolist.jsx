@@ -1,14 +1,26 @@
-import React from "react";
-
+import { useState, useEffect } from 'react';
+import React from 'react';
 
 const TodoList = (props) => {
-  console.log("todos",props.todolist);
+  const [message, setMessage] = useState();
+  //console.log('todos', props.todolist);
+
+  useEffect(() => {
+    console.log('props har ändrats');
+  }, [props.todolist]);
+
+  // Changing the title every time the message changes is a side-effect,
+  // so it needs to go in `useEffect`
+  useEffect(() => {
+    console.log('nytt message', message);
+    document.title = message;
+  }, [message]);
 
   return (
     <>
-      <table id="tableTodo" className="table table-hover">
+      <table id='tableTodo' className='table table-hover'>
         <thead>
-          <tr className="table-danger">
+          <tr className='table-danger'>
             <th>Date</th>
             <th>Title</th>
             <th>Description</th>
@@ -21,20 +33,20 @@ const TodoList = (props) => {
           <TodoItem key={todo.id} todo={todo} updateDone={props.updateDone} />
         ))}
       </table>
+      <br /> Enter something and look at doucument title:
+      <input type='text' onChange={(e) => setMessage(e.target.value)} />
     </>
   );
 };
 
-
-
-
 export const TodoItem = (props) => {
   let todo = props.todo;
   let date = new Date(todo.deadline);
+  let isChecked = todo.done ? 'checked' : '';
   //console.log("updateDone", props);
   return (
     <tbody>
-      <tr className="table-secondary">
+      <tr className='table-secondary'>
         <td>
           {date.toLocaleDateString()} {date.toLocaleTimeString()}
         </td>
@@ -43,21 +55,21 @@ export const TodoItem = (props) => {
         <td>{`${todo.assignee.firstName} ${todo.assignee.lastName}`}</td>
         <td>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={todo.done}
             onChange={(e) => props.updateDone(e, todo)}
           />
         </td>
         <td>
           <input
-            type="button"
-            className="btn btn-warning btn-sm"
-            value="Edit"
+            type='button'
+            className='btn btn-warning btn-sm'
+            value='Edit'
           />
         </td>
       </tr>
     </tbody>
   );
-};;
+};
 
 export default TodoList;

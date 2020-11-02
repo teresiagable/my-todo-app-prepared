@@ -12,8 +12,8 @@ const TodoMain = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const todolist = await todoService.getAll();
-      console.log('todolist', todolist);
+      let todolist = await todoService.getAll();
+      console.log('didmount list', todolist);
       setNewCurrentStateFunction({
         todos: todolist,
         loading: false,
@@ -21,13 +21,34 @@ const TodoMain = (props) => {
     };
     fetchData();
 
-    return function cleanup() {
+    return () => {
+      console.log('component did unmount');
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let todolist = await todoService.getAll();
+      console.log('didmount list', todolist);
+      setNewCurrentStateFunction({
+        todos: todolist,
+        loading: false,
+      });
+    };
+    fetchData();
+
+    return () => {
       console.log('component did unmount');
     };
   }, []);
 
   // async componentDidMount() {
-
+  //   let todolist = await todoService.getAll();
+  //   console.log('todolist', todolist);
+  //   this.setState({
+  //     todos: todolist,
+  //     loading: false,
+  //   });
   // }
 
   const toggleDone = async (e, todo) => {
@@ -36,7 +57,6 @@ const TodoMain = (props) => {
 
     let newtodo = { ...todo, done: e.target.checked };
     //console.log("updated todo item", newtodo);
-    //här ska vi göra något med svaret sen.
     let response = await todoService.updateDone(newtodo);
 
     const itemIndex = currentState.todos.findIndex(
@@ -65,6 +85,6 @@ const TodoMain = (props) => {
   ) : (
     <TodoList todolist={currentState.todos} updateDone={toggleDone} />
   );
-};;
+};
 
 export default TodoMain;
