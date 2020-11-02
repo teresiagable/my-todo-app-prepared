@@ -1,54 +1,70 @@
-import React, { Component, Fragment } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import todoService from '../api/todoService';
-import Todos from './Todos';
+import Loader from 'react-loader-spinner';
+import TodoList from './TodoList';
 
-class TodoMain extends Component {
-  state = {
+const TodoMain = (props) => {
+  const [currentState, setNewCurrentStateFunction] = useState({
     todos: [],
     loading: true,
-  };
+  });
 
-  async componentDidMount() {
-    let todolist = await todoService.getAll();
-    console.log('todolist', todolist);
+  useEffect(() => {
+    const fetchData = async () => {
+      const todolist = await todoService.getAll();
+      console.log('todolist', todolist);
+      setNewCurrentStateFunction({
+        todos: todolist,
+        loading: false,
+      });
+    };
+    fetchData();
 
-    this.setState({
-      todos: todolist,
-      loading: false,
-    });
-  }
+    return function cleanup() {
+      console.log('component did unmount');
+    };
+  }, []);
 
-  toggleDone = (e, todo) => {
+  // async componentDidMount() {
+
+  // }
+
+  const toggleDone = async (e, todo) => {
     //console.log("togglevalue", todo);
     //console.log("e", e.target.checked);
 
     let newtodo = { ...todo, done: e.target.checked };
     //console.log("updated todo item", newtodo);
     //här ska vi göra något med svaret sen.
-    let response = todoService.updateDone(newtodo);
+    let response = await todoService.updateDone(newtodo);
 
-    const itemIndex = this.state.todos.findIndex(
+    const itemIndex = currentState.todos.findIndex(
       (todoItem) => todoItem.id == todo.id
     );
 
-    let newTodoList = [...this.state.todos];
+    let newTodoList = [...currentState.todos];
     newTodoList[itemIndex] = newtodo;
 
-    this.setState({
+    setNewCurrentStateFunction({
       todos: newTodoList,
+      loading: false,
     });
   };
 
-  render() {
-    return this.state.loading ? (
-      <div>Loading</div>
-    ) : (
-      <Fragment>
-        <Todos todolist={this.state.todos} updateDone={this.toggleDone} />
-      </Fragment>
-    );
-  }
-}
+  return currentState.loading ? (
+    <div>
+      <Loader
+        style={{ textAlign: 'center' }}
+        type='Watch'
+        color='#d33682'
+        height={100}
+        width={100}
+      />
+    </div>
+  ) : (
+    <TodoList todolist={currentState.todos} updateDone={toggleDone} />
+  );
+};;
 
 export default TodoMain;

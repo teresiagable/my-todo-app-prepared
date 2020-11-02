@@ -1,60 +1,63 @@
-import React, { Component, Fragment } from 'react';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import todoService from '../api/todoService';
-import Loader from 'react-loader-spinner';
-import Todos from './Todos';
+import React from "react";
 
-class Home extends Component {
-  state = {
-    todos: [],
-    loading: true,
-  };
 
-  async componentDidMount() {
-    let todolist = await todoService.getAll();
-    console.log('todolist', todolist);
-    this.setState({
-      todos: todolist,
-      loading: false,
-    });
-  }
+const TodoList = (props) => {
+  console.log("todos",props.todolist);
 
-  toggleDone = async (e, todo) => {
-    //console.log("togglevalue", todo);
-    //console.log("e", e.target.checked);
+  return (
+    <>
+      <table id="tableTodo" className="table table-hover">
+        <thead>
+          <tr className="table-danger">
+            <th>Date</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assigned to</th>
+            <th>Done</th>
+            <th></th>
+          </tr>
+        </thead>
+        {props.todolist.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} updateDone={props.updateDone} />
+        ))}
+      </table>
+    </>
+  );
+};
 
-    let newtodo = { ...todo, done: e.target.checked };
-    //console.log("updated todo item", newtodo);
-    //här ska vi göra något med svaret sen.
-    let response = await todoService.updateDone(newtodo);
 
-    const itemIndex = this.state.todos.findIndex(
-      (todoItem) => todoItem.id == todo.id
-    );
 
-    let newTodoList = [...this.state.todos];
-    newTodoList[itemIndex] = newtodo;
 
-    this.setState({
-      todos: newTodoList,
-    });
-  };
+export const TodoItem = (props) => {
+  let todo = props.todo;
+  let date = new Date(todo.deadline);
+  //console.log("updateDone", props);
+  return (
+    <tbody>
+      <tr className="table-secondary">
+        <td>
+          {date.toLocaleDateString()} {date.toLocaleTimeString()}
+        </td>
+        <td>{todo.title}</td>
+        <td>{todo.description}</td>
+        <td>{`${todo.assignee.firstName} ${todo.assignee.lastName}`}</td>
+        <td>
+          <input
+            type="checkbox"
+            checked={todo.done}
+            onChange={(e) => props.updateDone(e, todo)}
+          />
+        </td>
+        <td>
+          <input
+            type="button"
+            className="btn btn-warning btn-sm"
+            value="Edit"
+          />
+        </td>
+      </tr>
+    </tbody>
+  );
+};;
 
-  render() {
-    return this.state.loading ? (
-      <div>
-        <Loader
-          style={{ 'text-align': 'center' }}
-          type='Watch'
-          color='#d33682'
-          height={300}
-          width={300}
-        />
-      </div>
-    ) : (
-      <Todos todolist={this.state.todos} updateDone={this.toggleDone} />
-    );
-  }
-}
-
-export default Home;
+export default TodoList;
