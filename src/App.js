@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import TodoMain from './components/TodoMain';
+import TodoItemForm from './components/TodoItemForm';
 import StarWarMain from './components/starwars/StarWarMain';
 import NotFound from './components/NotFound';
 import './App.css';
-import ContextDemo from "./components/ContextDemo";
+import ContextDemo from './components/demos/ContextDemo';
 import DisplayContext from './context/DisplayContext';
-import DemouseMemo from './components/DemouseMemo';
-import DemouseCallBack from './components/DemouseCallBack';
-
+import DemouseMemo from './components/demos/DemouseMemo';
+import DemouseCallback from './components/demos/DemouseCallback';
 
 function App() {
   return (
@@ -34,6 +34,9 @@ function App() {
               <Route exact path='/todomain'>
                 <TodoMain />
               </Route>
+              <Route exact path='/todomain/:id?'>
+                <TodoItemForm />
+              </Route>
               <Route exact path='/charactermain'>
                 <StarWarMain />
               </Route>
@@ -44,7 +47,7 @@ function App() {
                 <DemouseMemo />
               </Route>
               <Route exact path='/usecallback'>
-                <DemouseCallBack />
+                <DemouseCallback />
               </Route>
               <Route exact path='/'>
                 <Home />

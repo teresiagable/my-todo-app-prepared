@@ -32,7 +32,7 @@ export default function Navbar() {
         </li>
         <li className='nav-item'>
           <Link className='nav-link' to='/usecallback'>
-            useCallBack
+            useCallback
           </Link>
         </li>
       </ul>

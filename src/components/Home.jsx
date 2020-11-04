@@ -1,14 +1,11 @@
-import React, { useRef } from 'react';
-import DisplayContextComponent from './DisplayContextComponent';
-const Home = (props) => {
-  const defaultTitle = useRef(document.title);
+import React from 'react';
 
-  document.title = 'Home';
+const Home = (props) => {
   return (
     <div>
-      <DisplayContextComponent />
+      {/* <DisplayContextComponent />
       <h1>Chas Academy</h1>
-      <p className='lead'>Study study study</p>
+      <p className='lead'>Study study study</p> */}
     </div>
   );
 };
