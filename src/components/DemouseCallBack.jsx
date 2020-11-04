@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import List from './List.js';
 
 export default function DemouseCallBack() {
   const [number, setNumber] = useState(1);
   const [dark, setDark] = useState(false);
 
-  const getItems = () => {
+  const getItems = useCallback(() => {
+    return [number, number + 1, number + 2];
+  }, [number]);
+
+  const getItems2 = () => {
     return [number, number + 1, number + 2];
   };
 

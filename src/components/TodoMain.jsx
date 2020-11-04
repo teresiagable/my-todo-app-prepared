@@ -7,9 +7,7 @@ import { useRef, useContext } from 'react';
 import DisplayContext from '../context/DisplayContext';
 
 const TodoMain = (props) => {
-  const defaultTitle = useRef(document.title);
 
-  document.title = 'Todo Main';
   const [currentState, setNewCurrentStateFunction] = useState({
     todos: [],
     loading: true,
@@ -29,11 +27,7 @@ const TodoMain = (props) => {
     };
     fetchData();
 
-    return () => {
-      document.title = defaultTitle.current;
-
-      console.log('component did unmount');
-    };
+    
   }, []);
 
   useEffect(() => {
