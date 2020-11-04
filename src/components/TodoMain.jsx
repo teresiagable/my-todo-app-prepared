@@ -3,10 +3,13 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import todoService from '../api/todoService';
 import Loader from 'react-loader-spinner';
 import TodoList from './TodoList';
-import { useContext } from 'react';
+import { useRef, useContext } from 'react';
 import DisplayContext from '../context/DisplayContext';
 
 const TodoMain = (props) => {
+  const defaultTitle = useRef(document.title);
+
+  document.title = 'Todo Main';
   const [currentState, setNewCurrentStateFunction] = useState({
     todos: [],
     loading: true,
@@ -15,6 +18,8 @@ const TodoMain = (props) => {
   const [lightTheme, setLightTheme] = useState(true)
 
   useEffect(() => {
+    const defaultTitle = document.title;
+
     const fetchData = async () => {
       let todolist = await todoService.getAll();
       setNewCurrentStateFunction({
@@ -25,6 +30,8 @@ const TodoMain = (props) => {
     fetchData();
 
     return () => {
+      document.title = defaultTitle.current;
+
       console.log('component did unmount');
     };
   }, []);

@@ -8,38 +8,53 @@ import NotFound from './components/NotFound';
 import './App.css';
 import ContextDemo from "./components/ContextDemo";
 import DisplayContext from './context/DisplayContext';
+import DemouseMemo from './components/DemouseMemo';
+import DemouseCallBack from './components/DemouseCallBack';
+
 
 function App() {
   return (
-    <DisplayContext.Provider value={{ leastimportantcolumn: '99' , lightStyle:"bg-light", darkStyle: 'bg-info', colorStyle:"warning"}}>
-    <div className='App'>
-      <header className='App-header'>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path='/home'>
-              <Home />
-            </Route>
-            <Route exact path='/users' render={() => <h1> Users </h1>} />
-            <Route exact path='/todomain'>
-              <TodoMain />
-            </Route>
-            <Route exact path='/charactermain'>
-              <StarWarMain />
-            </Route>
-            <Route exact path='/contextdemo'>
-              <ContextDemo />
-            </Route>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route path='*' component={NotFound} />
-          </Switch>
-        </Router>
-      </header>
-    </div>
+    <DisplayContext.Provider
+      value={{
+        leastimportantcolumn: '99',
+        lightStyle: 'bg-light',
+        darkStyle: 'bg-info',
+        colorStyle: 'warning',
+      }}
+    >
+      <div className='App'>
+        <header className='App-header'>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path='/home'>
+                <Home />
+              </Route>
+              <Route exact path='/users' render={() => <h1> Users </h1>} />
+              <Route exact path='/todomain'>
+                <TodoMain />
+              </Route>
+              <Route exact path='/charactermain'>
+                <StarWarMain />
+              </Route>
+              <Route exact path='/contextdemo'>
+                <ContextDemo />
+              </Route>
+              <Route exact path='/usememo'>
+                <DemouseMemo />
+              </Route>
+              <Route exact path='/usecallback'>
+                <DemouseCallBack />
+              </Route>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+              <Route path='*' component={NotFound} />
+            </Switch>
+          </Router>
+        </header>
+      </div>
     </DisplayContext.Provider>
-
   );
 }
 
