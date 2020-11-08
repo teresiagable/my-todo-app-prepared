@@ -12,36 +12,24 @@ class todoService {
       });
   }
 
-  async getTodoItem(todoId) {
-    var config = {
-      method: 'get',
-      url:
-        'https://nameless-sea-91978.herokuapp.com/api/todoItem?type=id&value=' +
-        todoId,
-      headers: {},
-    };
-    console.log(config);
-
-    return await axios(config)
+  async getTodoItem(id) {
+    return await axios
+      .get('https://nameless-sea-91978.herokuapp.com/api/todoItem?type=id&value=' +id)
       .then((response) => {
         return response.data;
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  async getUsers() {
-    var config = {
-      method: 'get',
-      url: 'https://nameless-sea-91978.herokuapp.com/api/appUser',
-      headers: {},
-    };
-    return await axios(config)
+  async getAllUsers() {
+    return await axios
+      .get('https://nameless-sea-91978.herokuapp.com/api/appUser')
       .then((response) => {
         return response.data;
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
