@@ -66,8 +66,12 @@ export const TodoItem = (props) => {
             className='btn btn-warning btn-sm'
             value='Edit'
           />
-          <Button variant='contained' color='primary' href={`/todo/${todo.id}`}>
-            Link
+          <Button
+            variant='contained'
+            color='primary'
+            href={`/todoitemform/${todo.id}`}
+          >
+            `` Link
           </Button>
         </td>
       </tr>

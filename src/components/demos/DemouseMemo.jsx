@@ -8,6 +8,7 @@ export default function DemouseMemo() {
   const doubleNumber = useMemo(() => {
     return slowFunction(number);
   }, [number]);
+console.log(doubleNumber);
 
   //const doubleNumber = slowFunction(number);
   const themeStyles = {

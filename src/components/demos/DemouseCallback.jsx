@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import List from './List.js';
 
 export default function DemouseCallback() {
   const [number, setNumber] = useState(1);
   const [dark, setDark] = useState(false);
 
-  const getItems = useCallback(() => {
+  const getItems = useMemo(() => {
     return [number, number + 1, number + 2];
   }, [number]);
+  console.log(getItems);
+
 
   const theme = {
     backgroundColor: dark ? '#333' : '#FFF',

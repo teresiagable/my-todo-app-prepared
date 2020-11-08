@@ -9,4 +9,11 @@ const Home = (props) => {
     </div>
   );
 };
+
+
+
+const fetchData = async () => {
+  return await keepingScoreService.getAll();
+};
+console.log(fetchData());
 export default Home;
