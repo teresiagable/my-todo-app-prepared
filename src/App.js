@@ -12,6 +12,7 @@ import DisplayContext from './context/DisplayContext';
 import DemouseMemo from './components/demos/DemouseMemo';
 import DemouseCallback from './components/demos/DemouseCallback';
 import ErrorBoundary from './components/ErrorBoundary';
+import StateDemo from './components/demos/state/StateDemo';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         colorStyle: 'warning',
       }}
     >
-      <div title ="Test" className='App'>
+      <div className='App'>
         <header className='App-header'>
           <Router>
             <Navbar />
@@ -48,6 +49,9 @@ function App() {
               </Route>
               <Route exact path='/contextdemo'>
                 <ContextDemo />
+              </Route>
+              <Route exact path='/statedemo'>
+                <StateDemo />
               </Route>
               <Route exact path='/usememo'>
                 <DemouseMemo />
