@@ -11,6 +11,7 @@ import ContextDemo from './components/demos/ContextDemo';
 import DisplayContext from './context/DisplayContext';
 import DemouseMemo from './components/demos/DemouseMemo';
 import DemouseCallback from './components/demos/DemouseCallback';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
@@ -22,20 +23,25 @@ function App() {
         colorStyle: 'warning',
       }}
     >
-      <div className='App'>
+      <div title ="Test" className='App'>
         <header className='App-header'>
           <Router>
             <Navbar />
+
             <Switch>
               <Route exact path='/home'>
                 <Home />
               </Route>
               <Route exact path='/users' render={() => <h1> Users </h1>} />
               <Route exact path='/todomain'>
-                <TodoMain />
+                <ErrorBoundary>
+                  <TodoMain />
+                </ErrorBoundary>
               </Route>
               <Route exact path='/todoitemform/:id'>
-                <TodoItemForm />
+                <ErrorBoundary>
+                  <TodoItemForm />
+                </ErrorBoundary>
               </Route>
               <Route exact path='/charactermain'>
                 <StarWarMain />
